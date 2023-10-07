@@ -1,0 +1,68 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+}
+@model ICollection<Review>
+<h1>Index</h1>
+
+<main id="main" class="main">
+
+    <div class="pagetitle">
+        <nav>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a asp-area="Manage" asp-controller="Home" asp-action="Index">Home</a></li>
+                <li class="breadcrumb-item">Review</li>
+                <li class="breadcrumb-item active">See</li>
+            </ol>
+        </nav>
+    </div><!-- End Page Title -->
+
+    <section class="section">
+        <div class="row">
+            <div class="col-lg-12 container">
+
+                <div class="card container">
+                    <div class="card-body">
+                        <h5 class="card-title">Reviews</h5>
+                        <!-- Active Table -->
+                        <table class="table table-borderless">
+                            <thead>
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">Name</th>
+                                    <th scope="col">Email</th>
+                                    <th scope="col">Comment</th>
+                                    <th scope="col">Sent Time</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var reviews in Model ?? new List<Review>())
+                                {
+                                    <tr>
+                                        <th scope="row">@reviews.Id</th>
+                                        <td>@reviews.Name</td>
+                                        <td>@reviews.Email</td>
+                                        <td>@reviews.Comment</td>
+                                        <td>@reviews.CreateAt</td>
+                                        <td><a asp-area="Manage" asp-controller="Review" asp-action="Delete" asp-route-Id="@reviews.Id" class="btn btn-danger" title="Remove"><i class="bi bi-trash"></i></a></td>
+                                        <td><a asp-area="Manage" asp-controller="Review" asp-action="View" asp-route-Id="@reviews.Id" class="btn btn-warning" title="View"><i class="bi bi-box-arrow-right"></i></a></td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                        <!-- End Tables without borders -->
+                        
+                        <!-- pagination -->
+
+                    </div>
+                </div>
+
+
+            </div>
+
+
+        </div>
+    </section>
+
+</main><!-- End #main -->
+<!-- ======= Footer ======= -->

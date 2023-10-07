@@ -1,0 +1,50 @@
+﻿
+@model AppUserLoginDto
+
+@{
+    ViewData["Title"] = "Login";
+}
+
+<section class="vh-100" style="background: url('https://static.pexels.com/photos/267586/pexels-photo-267586.jpeg');">
+    <div class="container py-5 h-100">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+                <div class="card shadow-2-strong" style="border-radius: 1rem;">
+                    <div class="card-body p-5">
+                        <form method="post">
+                            <h3 class="mb-5">Giriş</h3>
+
+                            <div class="form-outline">
+                                <label>İstifadəçi adı</label>
+                                <input asp-for="UserName" class="form-control" required />
+                                <span style="color:red" asp-validation-for="UserName"></span>
+                            </div>
+
+                            <div class="form-outline mb-4">
+                                <label>Şifrə</label>
+                                <input asp-for="Password" class="form-control" required />
+                                <span style="color:red" asp-validation-for="Password"></span>
+                            </div>
+
+                            <!-- Checkbox -->
+                            <div class="form-check d-flex justify-content-start mb-4">
+                                <input class="form-check-input" type="checkbox" asp-for="RememberMe" />
+                                <label class="form-check-label" for="form1Example3">Məni xatırla </label>
+                            </div>
+
+                            <div style="color:red;text-align:center" asp-validation-summary="ModelOnly"></div>
+                            <br />
+
+                            <button class="btn btn-primary btn-lg btn-block" type="submit">Daxil ol</button>
+
+                        </form>
+
+                        <div class="form-check d-flex justify-content-start mb-1 mt-4">
+                            <label>Qeydiyyatdan keçmək üçün <a asp-controller="Account" asp-action="Register" style="color:blue">bura</a> basın. </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

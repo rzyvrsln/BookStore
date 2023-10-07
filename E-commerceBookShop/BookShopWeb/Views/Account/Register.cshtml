@@ -1,0 +1,68 @@
+﻿@model AppUserRegisterDto
+
+@{
+    ViewData["Title"] = "Register";
+}
+
+<section class="vh-100" style="background: url('https://static.pexels.com/photos/267586/pexels-photo-267586.jpeg');">
+    <div class="container py-5 h-100">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col-12 col-md-8 col-lg-12 col-xl-8">
+                <div class="card shadow-2-strong" style="border-radius: 1rem; width:100%">
+                    <div class="card-body" style="width:100%">
+                        <form method="post">
+                            <h3 class="mb-5">Qeydiyyat</h3>
+                            <div style="display:flex">
+                                <div class="mr-2" style="width:100%">
+                                    <label>Ad</label>
+                                    <input asp-for="Name" class="form-control" required />
+                                    <span style="color:red" asp-validation-for="Name"></span>
+                                </div>
+
+                                <div class=" ml-2" style="width:100%">
+                                    <label>Soyad</label>
+                                    <input asp-for="SurName" class="form-control" required />
+                                    <span style="color:red" asp-validation-for="SurName"></span>
+                                </div>
+                            </div>
+                            <div style="display:flex">
+                                <div class="mr-2" style="width:100%">
+                                    <label>Email</label>
+                                    <input asp-for="Email" class="form-control" required />
+                                    <span style="color:red" asp-validation-for="Email"></span>
+                                </div>
+                                <div class="ml-2" style="width:100%">
+                                    <label>İstifadəçi adı</label>
+                                    <input asp-for="UserName" class="form-control" value="" required />
+                                    <span style="color:red" asp-validation-for="UserName"></span>
+                                </div>
+                            </div>
+
+                            <div style="display:flex">
+                                <div class="mr-2" style="width:100%">
+                                    <label>Şifrə yarat</label>
+                                    <input asp-for="Password" class="form-control" value="" required />
+                                    <span style="color:red" asp-validation-for="Password"></span>
+                                </div>
+
+                                <div class="ml-2" style="width:100%">
+                                    <label>Şifrəni təkrar yaz</label>
+                                    <input asp-for="ConfirmPassword" class="form-control" value="" required />
+                                    <span style="color:red" asp-validation-for="ConfirmPassword"></span>
+                                </div>
+                            </div>
+                            <div style="color:red;text-align:center" asp-validation-summary="ModelOnly"></div>
+                            <br />
+                            <button class="btn btn-primary btn-lg btn-block" type="submit">Qeydiyyatdan keç</button>
+
+                        </form>
+
+                        <div class="form-check d-flex justify-content-start mb-1 mt-4">
+                            <label>Daxil olmaq üçün <a asp-controller="Login" asp-action="Index" style="color:blue">bura</a> basın. </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

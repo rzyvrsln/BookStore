@@ -1,0 +1,152 @@
+﻿@{
+    ViewData["Title"] = "Contact";
+}
+
+@model ContactVM
+
+<!-- END HEADER NAVIGATION -->
+<!--Slider Start-->
+
+<!--Slider End-->
+<!-- Contact Us Start -->
+<section id="slider-sec" class="slider-sec parallax" style="background: url('https://static.pexels.com/photos/267586/pexels-photo-267586.jpeg');">
+</section>
+<section class="contact-sec" id="contact-sec">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 col-lg-6 contact-description wow slideInLeft" data-wow-delay=".8s">
+                <div class="contact-detail wow fadeInLeft">
+                    <div class="ex-detail">
+                        <span class="fly-text">BİZİMLƏ ƏLAQƏ</span>
+                        <h4 class="large-heading">
+                        </h4>
+                    </div>
+                    <div class="row location-details text-center text-md-left">
+                        <div class="col-12 col-md-10 country-1">
+                            <h4 class="heading-text text-left">Bizimlə əlaqə yaratmaq üçün</h4>
+                            <ul>
+                                <li><i class="fas fa-mobile-alt"></i><a href="https://wa.me/556280899" target="_blank">Whatsap ilə əlaqəyə keçin</a></li>
+                                <li><i class="fas fa-envelope"></i><a href="#">Email: bookstore20232024@gmail.com</a></li>
+                                <li><i class="fas fa-map-marker"></i><a href="#">Bakı</a></li>
+                            </ul>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-lg-6 contact-box text-center text-md-left wow slideInRight" data-wow-delay=".8s">
+                <div class="c-box wow fadeInRight">
+                    <h4 class="small-heading">Bizə yazın</h4>
+                    <p class="small-text">Şikayət və təklifinizi bizə bildirdiyiniz üçün təşəkkür edirik</p>
+                    <form id="connect" class="contact-form" id="contact-form-data" method="post">
+                        <div class="row my-form">
+                            <div class="col-md-12 col-sm-12">
+                                <div id="result"></div>
+                            </div>
+                            <div class="col-12 col-md-6">
+                                <input asp-for="Name" class="form-control" placeholder="Ad" required="required">
+                                <span asp-validation-for="Name" style="color:red;"></span>
+                            </div>
+                            <div class="col-12 col-md-6">
+                                <input asp-for="Surname" class="form-control" placeholder="Soy ad" required="required">
+                                <span asp-validation-for="Surname" style="color:red;"></span>
+                            </div>
+                            <div class="col-12 col-md-6">
+                                <input asp-for="Email" class="form-control" placeholder="Email" required="required">
+                                <span asp-validation-for="Email" style="color:red;"></span>
+                            </div>
+                            <div class="col-12 col-md-6">
+                                <input asp-for="Subject" class="form-control" placeholder="Mövzu" required="required">
+                                <span asp-validation-for="Subject" style="color:red;"></span>
+                            </div>
+                            <div class="col-12">
+                                <textarea asp-for="Message" class="form-control" placeholder="Təklif və ya şikayət" rows="7" required="required"></textarea>
+                                <span asp-validation-for="Message" style="color:red;"></span>
+                            </div>
+                            <div class="col-12">
+                                <button class="btn btn-success" type="submit">
+                                    Göndər
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    </section>
+<!-- Contact Us End -->
+<!--footer1 sec start-->
+@section AddCss{
+    <link href="~/libs/toastr.js/toastr.css" rel="stylesheet" />
+    <link href="~/libs/toastr.js/toastr.min.css" rel="stylesheet" />
+}
+
+@section Scripts{
+
+    <script src="~/libs/jquery-validate/jquery.validate.js"></script>
+    <script src="~/libs/jquery-validate/jquery.validate.min.js"></script>
+
+    <script src="~/libs/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
+    <script src="~/libs/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+
+    <script src="~/libs/toastr.js/toastr.min.js"></script>
+
+    <script>
+
+        toastr.options = {
+            "closeButton": false,
+            "debug": false,
+            "newestOnTop": false,
+            "progressBar": true,
+            "positionClass": "toast-top-right",
+            "preventDuplicates": true,
+            "onclick": null,
+            "showDuration": "5000",
+            "hideDuration": "1000",
+            "timeOut": "5000",
+            "extendedTimeOut": "1000",
+            "showEasing": "swing",
+            "hideEasing": "linear",
+            "showMethod": "fadeIn",
+            "hideMethod": "fadeOut"
+        }
+
+        $(document).ready(function () {
+
+            $('#connect').submit(function (e) {
+                e.preventDefault();
+                const isValid = $(e.currentTarget).valid();
+                if (!isValid)
+                    return;
+
+                const formData = new FormData(e.currentTarget);
+
+                $.ajax({
+                    url: '',
+                    type: 'POST',
+                    data: formData,
+                    contentType: false,
+                    processData: false,
+                    success: function (response) {
+                        console.log(response);
+                        if (response.error == false) {
+                            e.currentTarget.reset();
+                            toastr.success(response.message, "Müraciətiniz uğurla tamamlandı!");
+                        }
+                        else {
+                            toastr.error(response.message, "Xəta!");
+                        }
+                    },
+                    error: function (response) {
+                        console.log(response);
+                        toastr.error("Təyin edilməyən xəta baş verib, bir az sonra yenidən yoxlayın!", "Xəta!");
+                    }
+
+                });
+            });
+
+        });
+    </script>
+
+}

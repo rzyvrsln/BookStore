@@ -1,0 +1,179 @@
+﻿@using BookShopViewModel.Entites.Home;
+@model HomeVM
+
+<!-- START HEADING SECTION -->
+<section id="slider-sec" class="slider-sec parallax" style="background: url('https://static.pexels.com/photos/267586/pexels-photo-267586.jpeg');">
+</section>
+<div class="about_content">
+
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12 col-md-12 col-lg-10  text-center text-lg-left wow slideInUp" data-wow-duration="2s">
+                <h1 class="heading">Sifarişinizi rəsmiləşdirin.</h1>
+                <p class="para_text">Sifarişi rəsmiləşdirdikdən sonra ən qısa zamanda sizə geri dönüş edəcəyik.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- START SHOP CART SECTION -->
+    <div class="shop-cart wow slideInUp" data-wow-duration="2s">
+        <div class="container">
+
+            <!-- START SHOP CART CHECKOUT FORM -->
+            <div class="row pt-5">
+                <div class="col-12 col-lg-6 wow slideInLeft" data-wow-duration="2s">
+                    <div class="calculate-shipping">
+                        <h4 class="heading">Əlaqə məlumatlarınızı daxil edin</h4>
+
+
+                        <form id="contact" class="contact-form" id="contact-form-data" method="post">
+
+                            <div class="col-12 col-md-6">
+                                <input type="hidden" asp-for="@Model.Book.Price" class="form-control">
+                            </div>
+                            <div class="col-12 col-md-6">
+                                <input type="hidden" asp-for="@Model.Book.Name" class="form-control">
+                            </div>
+                            <div class="col-12 col-md-6">
+                                <input type="hidden" asp-for="@Model.Book.Author" class="form-control">
+                            </div>
+                            <div class="col-12 col-md-6">
+                                <input type="hidden" asp-for="@Model.Book.Id" class="form-control">
+                            </div>
+
+                            <div class="row my-form">
+                                <div class="col-md-12 col-sm-12">
+                                    <div id="result"></div>
+                                </div>
+                                <div class="col-12 col-md-6">
+                                    <input asp-for="@Model.BasketContactVM.Name" class="form-control" placeholder="Ad" required="required">
+                                    <span asp-validation-for="@Model.BasketContactVM.Name" style="color:red;"></span>
+                                </div>
+                                <div class="col-12 col-md-6">
+                                    <input asp-for="@Model.BasketContactVM.Surname" class="form-control" placeholder="Soy Ad">
+                                    <span asp-validation-for="@Model.BasketContactVM.Surname" style="color:red;"></span>
+                                </div>
+                                <div class="col-12 col-md-6">
+                                    <input asp-for="@Model.BasketContactVM.Phone" class="form-control" placeholder="Telefon nömrəsi " required="required">
+                                    <span asp-validation-for="@Model.BasketContactVM.Phone" style="color:red;"></span>
+                                </div>
+                                <div class="col-12 col-md-6">
+                                    <input asp-for="@Model.BasketContactVM.Email" class="form-control" placeholder="Email">
+                                    <span asp-validation-for="@Model.BasketContactVM.Email" style="color:red;"></span>
+                                </div>
+                                <div class="col-12">
+                                    <textarea asp-for="@Model.BasketContactVM.Message" class="form-control" placeholder="Təklif və ya iradınız.(Əgər varsa)" rows="7"></textarea>
+                                    <span asp-validation-for="@Model.BasketContactVM.Message" style="color:red;"></span>
+                                </div>
+                                <div class="col-12">
+                                    <button class="btn btn-success" type="submit">
+                                        Sifariş et
+                                    </button>
+                                </div>
+                            </div>
+
+                        </form>
+                    </div>
+                </div>
+                <div class="col-12 col-lg-6 wow slideInRight" data-wow-duration="2s">
+                    <div class="card-total">
+                        <h4 class="heading">Kitab Məlumatları</h4>
+                        <table>
+                            <tr>
+                                <td>Ödəniləcək məbləğ</td>
+                                <td>@Model.Book.Price AZN</td>
+                            </tr>
+                            <tr>
+                                <td>Kitabın adı</td>
+                                <td>@Model.Book.Name</td>
+                            </tr>
+                            <tr>
+                                <td>Müəllif</td>
+                                <td>@Model.Book.Author</td>
+                            </tr>
+
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <!-- END SHOP CART CHECKOUT FORM -->
+
+        </div>
+    </div>
+    <!-- END SHOP CART SECTION-->
+
+</div>
+<!-- END HEADING SECTION -->
+@section AddCss{
+    <link href="~/libs/toastr.js/toastr.css" rel="stylesheet" />
+    <link href="~/libs/toastr.js/toastr.min.css" rel="stylesheet" />
+}
+
+@section Scripts{
+
+    <script src="~/libs/jquery-validate/jquery.validate.js"></script>
+    <script src="~/libs/jquery-validate/jquery.validate.min.js"></script>
+
+    <script src="~/libs/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
+    <script src="~/libs/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+
+    <script src="~/libs/toastr.js/toastr.min.js"></script>
+
+    <script>
+
+        toastr.options = {
+            "closeButton": false,
+            "debug": false,
+            "newestOnTop": false,
+            "progressBar": true,
+            "positionClass": "toast-top-right",
+            "preventDuplicates": true,
+            "onclick": null,
+            "showDuration": "5000",
+            "hideDuration": "1000",
+            "timeOut": "5000",
+            "extendedTimeOut": "1000",
+            "showEasing": "swing",
+            "hideEasing": "linear",
+            "showMethod": "fadeIn",
+            "hideMethod": "fadeOut"
+        }
+
+        $(document).ready(function () {
+
+            $('#contact').submit(function (e) {
+                e.preventDefault();
+                const isValid = $(e.currentTarget).valid();
+                if (!isValid)
+                    return;
+
+                const formData = new FormData(e.currentTarget);
+
+                $.ajax({
+                    url: '',
+                    type: 'POST',
+                    data: formData,
+                    contentType: false,
+                    processData: false,
+                    success: function (response) {
+                        console.log(response);
+                        if (response.error == false) {
+                            e.currentTarget.reset();
+                            toastr.success(response.message, "Müraciətiniz uğurla tamamlandı!");
+                        }
+                        else {
+                            toastr.error(response.message, "Xəta!");
+                        }
+                    },
+                    error: function (response) {
+                        console.log(response);
+                        toastr.error("Təyin edilməyən xəta baş verib, bir az sonra yenidən yoxlayın!", "Xəta!");
+                    }
+
+                });
+            });
+
+        });
+    </script>
+
+}
