@@ -82,7 +82,6 @@ namespace BookShopWeb.Controllers
             client.Disconnect(true);
 
             TempData["Mail"] = registerDto.Email;
-
             return RedirectToAction(nameof(Index), "ConfirmMail");
         }
 
@@ -92,7 +91,6 @@ namespace BookShopWeb.Controllers
             await signInManager.SignOutAsync();
             return RedirectToAction(nameof(Index), "Home");
         }
-
 
     }
 }
