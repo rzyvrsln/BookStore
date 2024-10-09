@@ -53,7 +53,6 @@ namespace BookShopWeb.Controllers
                 Email = registerDto.Email,
                 ConfirmCode = code
             };
-            await userManager.AddToRoleAsync(user, "Admin");
 
             IdentityResult result = await userManager.CreateAsync(user,registerDto.Password);
 
@@ -65,6 +64,8 @@ namespace BookShopWeb.Controllers
                 }
                 return View();
             }
+
+            //await userManager.AddToRoleAsync(user, "Admin");
 
             MimeMessage mimeMessage = new MimeMessage();
             MailboxAddress mailboxAddressFrom = new MailboxAddress("Kitabal.biz.tr", "bookstore20232024@gmail.com");
