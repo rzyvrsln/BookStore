@@ -12,11 +12,13 @@ namespace BookShopWeb.Controllers
 
         private readonly UserManager<AppUser> userManager;
         private readonly SignInManager<AppUser> signInManager;
+        RoleManager<IdentityRole> roleManager;
 
-        public AccountController(UserManager<AppUser> userManager, SignInManager<AppUser> signInManager)
+        public AccountController(UserManager<AppUser> userManager, SignInManager<AppUser> signInManager, RoleManager<IdentityRole> roleManager)
         {
             this.userManager = userManager;
             this.signInManager = signInManager;
+            this.roleManager = roleManager;
         }
 
         [HttpGet]
@@ -51,6 +53,7 @@ namespace BookShopWeb.Controllers
                 Email = registerDto.Email,
                 ConfirmCode = code
             };
+            await userManager.AddToRoleAsync(user, "Admin");
 
             IdentityResult result = await userManager.CreateAsync(user,registerDto.Password);
 
@@ -90,6 +93,14 @@ namespace BookShopWeb.Controllers
         {
             await signInManager.SignOutAsync();
             return RedirectToAction(nameof(Index), "Home");
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> AddRole()
+        {
+            await roleManager.CreateAsync(new IdentityRole { Name = "Admin" });
+            await roleManager.CreateAsync(new IdentityRole { Name = "User" });
+            return View();
         }
 
     }
